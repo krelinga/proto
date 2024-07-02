@@ -18,5 +18,6 @@ jobs:
         with:
           against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"
       - uses: bufbuild/buf-push-action@v1
+        with:
           buf_api_token: ${{ secrets.BUF_API_TOKEN }}
 
