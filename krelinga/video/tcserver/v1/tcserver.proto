@@ -1,5 +1,4 @@
 syntax = "proto3";
-// test 2
 
 package krelinga.video.tcserver.v1;
 
