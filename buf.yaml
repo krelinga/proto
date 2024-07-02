@@ -1,4 +1,4 @@
 version: v2
-modules:
-  - path: .
-  - name: buf.build/krelinga/proto
+name: buf.build/krelinga/proto
+lint:
+  enum_zero_value_suffix: _UNKNOWN

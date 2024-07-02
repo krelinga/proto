@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package krelinga.video.tcserver.v1;
+
+message StartAsyncTranscodeRequest {
+    // Must be unique among all running transcodes on the server.
+    string name = 1;
+
+    string in_path = 2;
+    string out_path = 3;
+
+    // If set, the name of the profile to use.
+    string profile = 4;
+}
+
+message StartAsyncTranscodeResponse {
+}
+
+message CheckAsyncTranscodeRequest {
+    // Must match the name given in StartAsyncTranscodeRequest.
+    string name = 1;
+}
+
+enum TranscodeState {
+    TRANSCODE_STATE_UNKNOWN = 0;
+    TRANSCODE_STATE_NOT_STARTED = 4;
+    TRANSCODE_STATE_IN_PROGRESS = 1;
+    TRANSCODE_STATE_DONE = 2;
+    TRANSCODE_STATE_FAILED = 3;
+}
+
+message CheckAsyncTranscodeResponse {
+    TranscodeState state = 1;
+    string error_message = 2;
+    // Only set if state is STATE_IN_PROGRESS
+    string progress = 3;
+}
+
+message StartAsyncShowTranscodeRequest {
+    string name = 1;
+
+    string in_dir_path = 2;
+    string out_parent_dir_path = 3;
+
+    string profile = 4;
+}
+
+message StartAsyncShowTranscodeResponse {
+}
+
+message CheckAsyncShowTranscodeRequest {
+    // Must match the name given in StartAsyncTranscodeRequest.
+    string name = 1;
+}
+
+message CheckAsyncShowTranscodeResponse {
+    message File {
+        string episode = 1;
+        TranscodeState state = 2;
+        string error_message = 3;
+        // Only set if state is STATE_IN_PROGRESS
+        string progress = 4;
+    }
+    repeated File file = 1;
+    // State & error of anything not related to individual files.
+    TranscodeState state = 2;
+    string error_message = 3;
+}
+
+message StartAsyncSpreadTranscodeRequest {
+    string name = 1;
+
+    string in_path = 2;
+    string out_parent_dir_path = 3;
+
+    // TODO: expand how these can be specified in the future.
+    message ProfileList {
+        repeated string profile = 1;
+    }
+    ProfileList profile_list = 4;
+}
+
+message StartAsyncSpreadTranscodeResponse {
+}
+
+message CheckAsyncSpreadTranscodeRequest {
+    // Must match the name given in StartAsyncSpreadTranscodeRequest.
+    string name = 1;
+}
+
+message CheckAsyncSpreadTranscodeResponse {
+    message Profile {
+        string profile = 1;
+        TranscodeState state = 2;
+        string error_message = 3;
+        // Only set if state is STATE_IN_PROGRESS
+        string progress = 4;
+    }
+    repeated Profile profile = 1;
+    TranscodeState state = 2;
+    string error_message = 3;
+}
+
+message ListAsyncTranscodesRequest {
+}
+
+message ListAsyncTranscodesResponse {
+    message Op {
+        enum Type {
+            TYPE_UNKNOWN = 0;
+            TYPE_SINGLE_FILE = 1;
+            TYPE_SHOW = 2;
+            TYPE_SPREAD = 3;
+        }
+        string name = 1;
+        Type type = 2;
+        TranscodeState state = 3;
+    }
+    repeated Op op = 1;
+}
+
+service TCService {
+    rpc StartAsyncTranscode(StartAsyncTranscodeRequest) returns (StartAsyncTranscodeResponse) {}
+    rpc CheckAsyncTranscode(CheckAsyncTranscodeRequest) returns (CheckAsyncTranscodeResponse) {}
+
+    rpc StartAsyncShowTranscode(StartAsyncShowTranscodeRequest) returns (StartAsyncShowTranscodeResponse) {}
+    rpc CheckAsyncShowTranscode(CheckAsyncShowTranscodeRequest) returns (CheckAsyncShowTranscodeResponse) {}
+
+    rpc StartAsyncSpreadTranscode(StartAsyncSpreadTranscodeRequest) returns (StartAsyncSpreadTranscodeResponse) {}
+    rpc CheckAsyncSpreadTranscode(CheckAsyncSpreadTranscodeRequest) returns (CheckAsyncSpreadTranscodeResponse) {}
+
+    rpc ListAsyncTranscodes(ListAsyncTranscodesRequest) returns (ListAsyncTranscodesResponse) {}
+}
