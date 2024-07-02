@@ -2,3 +2,5 @@ version: v2
 name: buf.build/krelinga/proto
 lint:
   enum_zero_value_suffix: _UNKNOWN
+breaking:
+  ignore_unstable_packages: true
