@@ -1,0 +1,8 @@
+repos:
+  - repo: https://github.com/bufbuild/buf
+    rev: v1.34.0
+    hooks:
+      - id: buf-lint
+      - id: buf-breaking
+      - id: buf-dep-update
+      - id: buf-dep-prune
