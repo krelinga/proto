@@ -32,7 +32,7 @@ enum TranscodeState {
 message CheckAsyncTranscodeResponse {
     TranscodeState state = 1;
     string error_message = 2;
-    // Only set if state is STATE_IN_PROGRESS
+    // Only set if state is TRANSCODE_STATE_IN_PROGRESS
     string progress = 3;
 }
 
@@ -58,7 +58,7 @@ message CheckAsyncShowTranscodeResponse {
         string episode = 1;
         TranscodeState state = 2;
         string error_message = 3;
-        // Only set if state is STATE_IN_PROGRESS
+        // Only set if state is TRANSCODE_STATE_IN_PROGRESS
         string progress = 4;
     }
     repeated File file = 1;
@@ -93,7 +93,7 @@ message CheckAsyncSpreadTranscodeResponse {
         string profile = 1;
         TranscodeState state = 2;
         string error_message = 3;
-        // Only set if state is STATE_IN_PROGRESS
+        // Only set if state is TRANSCODE_STATE_IN_PROGRESS
         string progress = 4;
     }
     repeated Profile profile = 1;
