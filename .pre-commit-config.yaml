@@ -4,6 +4,9 @@ repos:
     hooks:
       - id: buf-lint
       - id: buf-breaking
+        # TODO: I would prefer to diff against local git state, but I couldn't
+        # get that working.  pre-commit always said that buf-breaking was making
+        # changes to the files in the repository....
         args: ["--debug", "--against", "buf.build/krelinga/proto"]
       - id: buf-dep-update
       - id: buf-dep-prune
