@@ -4,5 +4,6 @@ repos:
     hooks:
       - id: buf-lint
       - id: buf-breaking
+        args: ["--against", ".git#branch=main"]
       - id: buf-dep-update
       - id: buf-dep-prune
