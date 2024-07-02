@@ -4,8 +4,6 @@ repos:
     hooks:
       - id: buf-lint
       - id: buf-breaking
-        args: ["--debug --against", ".git"]
-        verbose: true
-          # log_file: /tmp/buf_breaking.log
+        args: ["--debug", "--against", "buf.build/krelinga/proto"]
       - id: buf-dep-update
       - id: buf-dep-prune
