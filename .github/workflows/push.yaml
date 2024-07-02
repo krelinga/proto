@@ -1,5 +1,7 @@
 name: buf-push
-on: push
+on: push:
+  branches:
+    - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,4 +13,7 @@ jobs:
           buf_user: ${{ secrets.BUF_USER }}
           buf_api_token: ${{ secrets.BUF_API_TOKEN }}
       - uses: bufbuild/buf-lint-action@v1
+      - uses: bufbuild/buf-breaking-action@v1
+        with:
+          against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main"
 
