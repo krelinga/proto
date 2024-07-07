@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+import "google/protobuf/duration.proto";
+
+package krelinga.video.mkv_util_server.v1;
+
+message GetFileSizeRequest {
+    string path = 1;
+}
+
+message GetFileSizeResponse {
+    int64 size = 1;
+}
+
+message RunMkvToolNixCommandRequest {
+    enum Command {
+        COMMAND_UNKNOWN = 0;
+        COMMAND_MKVINFO = 1;
+    }
+    Command command = 1;
+    repeated string args = 2;
+}
+
+message RunMkvToolNixCommandResponse {
+    int32 exit_code = 1;
+    string stdout = 2;
+    string stderr = 3;
+}
+
+message ConcatRequest {
+    repeated string input_paths = 1;
+    string output_path = 2;
+}
+
+message ConcatResponse {
+}
+
+message GetChaptersRequest {
+    string in_path = 1;
+    ChaptersFormat format = 2;
+}
+
+message GetChaptersResponse {
+    Chapters chapters = 1;
+}
+
+enum ChaptersFormat {
+    CHAPTERS_FORMAT_UNKNOWN = 0;
+    CHAPTERS_FORMAT_SIMPLE = 1;
+    CHAPTERS_FORMAT_XML = 2;
+}
+
+message Chapters {
+    ChaptersFormat format = 1;
+    SimpleChapters simple = 2;
+}
+
+message SimpleChapters {
+    message Chapter {
+        int32 number = 1;
+        string name = 2;
+        google.protobuf.Duration offset = 3;
+    }
+    repeated Chapter chapters = 1;
+}
+
+message GetInfoRequest {
+    string in_path = 1;
+}
+
+message GetInfoResponse {
+    Info info = 1;
+}
+
+message Info {
+    google.protobuf.Duration duration = 1;
+}
+
+message SplitRequest {
+    string in_path = 1;
+    message ByChapters {
+        // If not specified, will split from the beginning of the file.
+        int32 start = 1;
+        // If not specified, will split until the end of the file.
+        int32 limit = 2;
+
+        string out_path = 3;
+    }
+    repeated ByChapters by_chapters = 2;
+}
+
+message SplitResponse {
+}
+
+service MkvUtilService {
+    rpc GetFileSize(GetFileSizeRequest) returns (GetFileSizeResponse) {}
+    rpc RunMkvToolNixCommand(RunMkvToolNixCommandRequest) returns (RunMkvToolNixCommandResponse) {}
+    rpc Concat(ConcatRequest) returns (ConcatResponse) {}
+    rpc GetChapters(GetChaptersRequest) returns (GetChaptersResponse) {}
+    rpc GetInfo(GetInfoRequest) returns (GetInfoResponse) {}
+    rpc Split(SplitRequest) returns (SplitResponse) {}
+}
