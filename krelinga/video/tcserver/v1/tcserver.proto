@@ -34,6 +34,7 @@ message CheckAsyncTranscodeResponse {
     string error_message = 2;
     // Only set if state is TRANSCODE_STATE_IN_PROGRESS
     string progress = 3;
+    string profile = 4;
 }
 
 message StartAsyncShowTranscodeRequest {
@@ -65,6 +66,7 @@ message CheckAsyncShowTranscodeResponse {
     // State & error of anything not related to individual files.
     TranscodeState state = 2;
     string error_message = 3;
+    string profile = 4;
 }
 
 message StartAsyncSpreadTranscodeRequest {
