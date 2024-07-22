@@ -60,6 +60,7 @@ message SimpleChapters {
         int32 number = 1;
         string name = 2;
         google.protobuf.Duration offset = 3;
+        google.protobuf.Duration duration = 4;
     }
     repeated Chapter chapters = 1;
 }
