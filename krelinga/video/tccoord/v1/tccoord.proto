@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package krelinga.video.tccoord.v1;
+
+message EnqueueDirRequest {
+    string id = 1;
+    string dir = 2;
+}
+
+message EnqueueDirResponse {
+}
+
+message GetQueueRequest {
+}
+
+message QueueEntry {
+    string id = 1;
+    string dir = 2;
+}
+
+message GetQueueResponse {
+    repeated QueueEntry queue = 1;
+}
+
+service TCCoordService {
+    rpc EnqueueDir(EnqueueDirRequest) returns (EnqueueDirResponse) {}
+    rpc GetQueue(GetQueueRequest) returns (GetQueueResponse) {}
+}
