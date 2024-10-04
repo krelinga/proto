@@ -13,9 +13,18 @@ message EnqueueDirResponse {
 message GetQueueRequest {
 }
 
+enum QueueEntryStatus {
+    QUEUE_ENTRY_STATUS_UNKNOWN = 0;
+    QUEUE_ENTRY_STATUS_QUEUED = 1;
+    QUEUE_ENTRY_STATUS_PROCESSING = 2;
+    QUEUE_ENTRY_STATUS_DONE = 3;
+    QUEUE_ENTRY_STATUS_ERROR = 4;
+}
+
 message QueueEntry {
     string id = 1;
     string dir = 2;
+    QueueEntryStatus status = 3;
 }
 
 message GetQueueResponse {
