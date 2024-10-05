@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package krelinga.video.library.v1;
+
+message DiscKey {
+    VolumeKey volume = 1;
+    string name = 2;
+}
+
+message DiscKeyList {
+    repeated DiscKey keys = 1;
+}
+
+message VolumeKey {
+    string name = 1;
+}
+
+message VolumeKeyList {
+    repeated VolumeKey keys = 1;
+}

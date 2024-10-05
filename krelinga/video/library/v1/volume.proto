@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package krelinga.video.library.v1;
+
+import "krelinga/video/library/v1/keys.proto";
+
+message Volume {
+    VolumeKey key = 1;
+
+    // The path where the volume is stored.
+    string path = 2;
+}
+
+message VolumeList {
+    repeated Volume volumes = 1;
+}

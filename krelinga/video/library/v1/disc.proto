@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package krelinga.video.library.v1;
+
+import "krelinga/video/library/v1/keys.proto";
+
+message Disc {
+    DiscKey key = 1;
+
+    // The path where the disc is stored.
+    string path = 2;
+}
+
+message DiscList {
+    repeated Disc discs = 1;
+}

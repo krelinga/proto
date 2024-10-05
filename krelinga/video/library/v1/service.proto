@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package krelinga.video.library.v1;
+
+import "krelinga/video/library/v1/disc.proto";
+import "krelinga/video/library/v1/keys.proto";
+import "krelinga/video/library/v1/volume.proto";
+
+message NewVolumeRequest {
+    VolumeKey volume_key = 1;
+}
+
+message NewVolumeResponse {}
+
+message FindVolumesRequest {}
+
+message FindVolumesResponse {
+    VolumeList volume_list = 1;
+}
+
+message DiscoverNewDiscsRequest {
+    VolumeKey volume_key = 1;
+}
+
+message DiscoverNewDiscsResponse {
+    DiscKeyList disc_key_list = 1;
+}
+
+message FindDiscsRequest {}
+
+message FindDiscsResponse {
+    DiscList disc_list = 1;
+}
+
+service Service {
+    // Create a new volume.
+    rpc NewVolume(NewVolumeRequest) returns (NewVolumeResponse) {}
+
+    // Find existing volumes.
+    rpc FindVolumes(FindVolumesRequest) returns (FindVolumesResponse) {}
+
+    // Scan a volume directory to discover new discs.
+    rpc DiscoverNewDiscs(DiscoverNewDiscsRequest) returns (DiscoverNewDiscsResponse) {}
+
+    // Find existing discs.
+    rpc FindDiscs(FindDiscsRequest) returns (FindDiscsResponse) {}
+}
