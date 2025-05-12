@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package krelinga.video.in.v1;
+
+message HelloWorldRequest {
+    string name = 1;
+}
+
+message HelloWorldResponse {
+    string message = 1;
+}
+
+service Service {
+    // Returns a hello world message.
+    rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
+}
