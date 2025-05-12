@@ -24,6 +24,21 @@ message ProjectNewRequest {
 message ProjectNewResponse {
 }
 
+message UnclaimedDiscDirListRequest {
+}
+
+message UnclaimedDiscDirListResponse {
+    repeated string dirs = 1;
+}
+
+message ProjectAssignDiskDirsRequest {
+    string project = 1;
+    repeated string dirs = 2;
+}
+
+message ProjectAssignDiskDirsResponse {
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
@@ -33,4 +48,10 @@ service Service {
 
     // Creates a new project.
     rpc ProjectNew(ProjectNewRequest) returns (ProjectNewResponse) {}
+
+    // Lists unclaimed disc directories.
+    rpc UnclaimedDiscDirList(UnclaimedDiscDirListRequest) returns (UnclaimedDiscDirListResponse) {}
+
+    // Assigns disk directories to a project.
+    rpc ProjectAssignDiskDirs(ProjectAssignDiskDirsRequest) returns (ProjectAssignDiskDirsResponse) {}
 }
