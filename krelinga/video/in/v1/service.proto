@@ -10,7 +10,17 @@ message HelloWorldResponse {
     string message = 1;
 }
 
+message ProjectListRequest {
+}
+
+message ProjectListResponse {
+    repeated string projects = 1;
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
+
+    // Lists existing projects.
+    rpc ProjectList(ProjectListRequest) returns (ProjectListResponse) {}
 }
