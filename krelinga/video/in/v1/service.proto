@@ -53,6 +53,8 @@ message ProjectDisc {
     string disc = 2;
     string thumb_state = 3;
     repeated string thumbs = 4;
+    // Map from file name -> category
+    map<string, string> files = 5;
 }
 
 message DiscCategorizeFilesRequest {
