@@ -39,6 +39,36 @@ message ProjectAssignDiskDirsRequest {
 message ProjectAssignDiskDirsResponse {
 }
 
+message ProjectGetRequest {
+    string project = 1;
+}
+
+message ProjectGetResponse {
+    string project = 1;
+    repeated ProjectDisc discs = 2;
+}
+
+message ProjectDisc {
+    string project = 1;
+    string disc = 2;
+    string thumb_state = 3;
+    repeated string thumbs = 4;
+}
+
+message DiscCategorizeFilesRequest {
+    string project = 1;
+    string disc = 2;
+    repeated FileCategory files = 3;
+}
+
+message FileCategory {
+    string file = 1;
+    string category = 2;
+}
+
+message DiscCategorizeFilesResponse {
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
@@ -54,4 +84,10 @@ service Service {
 
     // Assigns disk directories to a project.
     rpc ProjectAssignDiskDirs(ProjectAssignDiskDirsRequest) returns (ProjectAssignDiskDirsResponse) {}
+
+    // Get project details.
+    rpc ProjectGet(ProjectGetRequest) returns (ProjectGetResponse) {}
+
+    // Categorizes files on a disc.
+    rpc DiscCategorizeFiles(DiscCategorizeFilesRequest) returns (DiscCategorizeFilesResponse) {}
 }
