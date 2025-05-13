@@ -4,3 +4,5 @@ lint:
   enum_zero_value_suffix: _UNKNOWN
 breaking:
   ignore_unstable_packages: true
+  ignore:
+    - krelinga/video/in/v1  # Under active development
