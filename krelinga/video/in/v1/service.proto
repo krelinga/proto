@@ -60,10 +60,9 @@ message DiscFile {
     string thumb = 3;
 }
 
-message DiscCategorizeFilesRequest {
+message ProjectCategorizeFilesRequest {
     string project = 1;
-    string disc = 2;
-    repeated FileCategory files = 3;
+    repeated FileCategory files = 2;
 }
 
 message FileCategory {
@@ -71,7 +70,7 @@ message FileCategory {
     string category = 2;
 }
 
-message DiscCategorizeFilesResponse {
+message ProjectCategorizeFilesResponse {
 }
 
 service Service {
@@ -93,6 +92,6 @@ service Service {
     // Get project details.
     rpc ProjectGet(ProjectGetRequest) returns (ProjectGetResponse) {}
 
-    // Categorizes files on a disc.
-    rpc DiscCategorizeFiles(DiscCategorizeFilesRequest) returns (DiscCategorizeFilesResponse) {}
+    // Categorizes files on a project.
+    rpc ProjectCategorizeFiles(ProjectCategorizeFilesRequest) returns (ProjectCategorizeFilesResponse) {}
 }
