@@ -66,8 +66,9 @@ message ProjectCategorizeFilesRequest {
 }
 
 message FileCategory {
-    string file = 1;
-    string category = 2;
+    string disc = 1;
+    string file = 2;
+    string category = 3;
 }
 
 message ProjectCategorizeFilesResponse {
