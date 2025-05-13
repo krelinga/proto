@@ -49,12 +49,15 @@ message ProjectGetResponse {
 }
 
 message ProjectDisc {
-    string project = 1;
-    string disc = 2;
-    string thumb_state = 3;
-    repeated string thumbs = 4;
-    // Map from file name -> category
-    map<string, string> files = 5;
+    string disc = 1;
+    string thumb_state = 2;
+    repeated DiscFile disc_files = 3;
+}
+
+message DiscFile {
+    string file = 1;
+    string category = 2;
+    string thumb = 3;
 }
 
 message DiscCategorizeFilesRequest {
