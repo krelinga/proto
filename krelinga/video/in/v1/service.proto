@@ -74,6 +74,24 @@ message FileCategory {
 message ProjectCategorizeFilesResponse {
 }
 
+message MovieSearchRequest {
+    string partial_title = 1;
+}
+
+message MovieSearchResponse {
+    repeated MovieSearchResult = 1;
+}
+
+message MovieSearchResult {
+    string id = 1;
+    string original_title = 2;
+    string poster_url = 3;
+    string title = 4;
+    string release_date = 5;
+    string overview = 6;
+    repeated string genres = 7;
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
@@ -95,4 +113,7 @@ service Service {
 
     // Categorizes files on a project.
     rpc ProjectCategorizeFiles(ProjectCategorizeFilesRequest) returns (ProjectCategorizeFilesResponse) {}
+
+    // Search for movie metadata.
+    rpc MovieSearch(MovieSearchRequest) returns (MovieSearchResponse) {}
 }
