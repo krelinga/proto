@@ -94,6 +94,14 @@ message MovieSearchResult {
     repeated string genres = 7;
 }
 
+message ProjectSetMetadataRequest {
+    string project = 1;
+    string id = 2;  // The TMDB ID of the movie.
+}
+
+message ProjectSetMetadataResponse {
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
@@ -118,4 +126,7 @@ service Service {
 
     // Search for movie metadata.
     rpc MovieSearch(MovieSearchRequest) returns (MovieSearchResponse) {}
+
+    // Set metadata for a project.
+    rpc ProjectSetMetadata(ProjectSetMetadataRequest) returns (ProjectSetMetadataResponse) {}
 }
