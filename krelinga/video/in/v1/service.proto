@@ -46,6 +46,8 @@ message ProjectGetRequest {
 message ProjectGetResponse {
     string project = 1;
     repeated ProjectDisc discs = 2;
+    // Only set if this project has metadata attached.
+    MovieSearchResult search_result = 3;
 }
 
 message ProjectDisc {
