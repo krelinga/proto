@@ -79,7 +79,7 @@ message MovieSearchRequest {
 }
 
 message MovieSearchResponse {
-    repeated MovieSearchResult = 1;
+    repeated MovieSearchResult results = 1;
 }
 
 message MovieSearchResult {
