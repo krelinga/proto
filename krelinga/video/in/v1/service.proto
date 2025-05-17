@@ -109,11 +109,11 @@ message ProjectFinishRequest {
 message ProjectFinishResponse {
 }
 
-message ProjectDeleteRequest {
+message ProjectAbandonRequest {
     string project = 1;
 }
 
-message ProjectDeleteResponse {
+message ProjectAbandonResponse {
 }
 
 service Service {
@@ -147,6 +147,6 @@ service Service {
     // Finish a project.
     rpc ProjectFinish(ProjectFinishRequest) returns (ProjectFinishResponse) {}
 
-    // Delete a project.
-    rpc ProjectDelete(ProjectDeleteRequest) returns (ProjectDeleteResponse) {}
+    // Abandon a project.
+    rpc ProjectAbandon(ProjectAbandonRequest) returns (ProjectAbandonResponse) {}
 }
