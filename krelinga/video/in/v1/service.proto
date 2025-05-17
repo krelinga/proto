@@ -102,6 +102,20 @@ message ProjectSetMetadataRequest {
 message ProjectSetMetadataResponse {
 }
 
+message ProjectFinishRequest {
+    string project = 1;
+}
+
+message ProjectFinishResponse {
+}
+
+message ProjectDeleteRequest {
+    string project = 1;
+}
+
+message ProjectDeleteResponse {
+}
+
 service Service {
     // Returns a hello world message.
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {}
@@ -129,4 +143,10 @@ service Service {
 
     // Set metadata for a project.
     rpc ProjectSetMetadata(ProjectSetMetadataRequest) returns (ProjectSetMetadataResponse) {}
+
+    // Finish a project.
+    rpc ProjectFinish(ProjectFinishRequest) returns (ProjectFinishResponse) {}
+
+    // Delete a project.
+    rpc ProjectDelete(ProjectDeleteRequest) returns (ProjectDeleteResponse) {}
 }
