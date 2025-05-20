@@ -60,6 +60,15 @@ message DiscFile {
     string file = 1;
     string category = 2;
     string thumb = 3;
+
+    // Human-readable byte size.
+    string human_size = 4;
+
+    // Human-readable duration.
+    string human_duration = 5;
+
+    // Number of chapters in the file.
+    int32 num_chapters = 6;
 }
 
 message ProjectCategorizeFilesRequest {
