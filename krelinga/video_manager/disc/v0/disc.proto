@@ -2,11 +2,6 @@ syntax = "proto3";
 
 package krelinga.video_manager.disc.v0;
 
-message Set {
-    int id = 1;
-    string name = 2;
-}
-
 message ListInboxRequest {
 }
 
