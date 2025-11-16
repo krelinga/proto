@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package krelinga.video_manager.disc.v0;
+package krelinga.video_manager.disc.v1;
 
 message ListInboxRequest {
 }

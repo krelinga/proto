@@ -6,3 +6,4 @@ breaking:
   ignore_unstable_packages: true
   ignore:
     - krelinga/video/in/v1  # Under active development
+    - krelinga/video-manager/disc/v1  # Under active development
