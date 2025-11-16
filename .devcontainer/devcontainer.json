@@ -7,7 +7,7 @@
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
-		"ghcr.io/marcozac/devcontainer-features/buf:1": {},
+		"ghcr.io/mrsimonemms/devcontainers/buf:1": {},
 		"ghcr.io/gvatsal60/dev-container-features/pre-commit:1": {}
 	},
 
