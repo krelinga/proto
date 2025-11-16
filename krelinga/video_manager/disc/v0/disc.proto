@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package krelinga.video_manager.disc.v0;
+
+message Set {
+    int id = 1;
+    string name = 2;
+}
+
+message ListInboxRequest {
+}
+
+message ListInboxResponse {
+    repeated string directories = 1;
+}
+
+service DiscService {
+    rpc ListInbox (ListInboxRequest) returns (ListInboxResponse);
+}
+
