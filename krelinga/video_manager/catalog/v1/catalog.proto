@@ -68,6 +68,13 @@ message PutMovieEditionKindResponse {
     MovieEditionKind movie_edition_kind = 1;
 }
 
+message DeleteMovieEditionKindRequest {
+    uint32 id = 1;
+}
+
+message DeleteMovieEditionKindResponse {
+}
+
 message ListCardRequest {
     uint32 page_size = 1;
     string page_token = 2;
@@ -109,6 +116,13 @@ message PutCardResponse {
     Card card = 1;
 }
 
+message DeleteCardRequest {
+    uint32 id = 1;
+}
+
+message DeleteCardResponse {
+}
+
 message ListTmdbMovieRequest {
     string query = 1;
     uint32 page_size = 2;
@@ -125,12 +139,14 @@ service CatalogService {
     rpc ListMovieEditionKind(ListMovieEditionKindRequest) returns (ListMovieEditionKindResponse);
     rpc PostMovieEditionKind(PostMovieEditionKindRequest) returns (PostMovieEditionKindResponse);
     rpc PutMovieEditionKind(PutMovieEditionKindRequest) returns (PutMovieEditionKindResponse);
+    rpc DeleteMovieEditionKind(DeleteMovieEditionKindRequest) returns (DeleteMovieEditionKindResponse);
 
     // CRUD for Card
     rpc ListCard(ListCardRequest) returns (ListCardResponse);
     rpc GetCard(GetCardRequest) returns (GetCardResponse);
     rpc PostCard(PostCardRequest) returns (PostCardResponse);
     rpc PutCard(PutCardRequest) returns (PutCardResponse);
+    rpc DeleteCard(DeleteCardRequest) returns (DeleteCardResponse);
 
     // TMDB search api
     rpc ListTmdbMovie (ListTmdbMovieRequest) returns (ListTmdbMovieResponse);
