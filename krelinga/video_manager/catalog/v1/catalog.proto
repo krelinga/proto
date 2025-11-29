@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package krelinga.video_manager.catalog.v1;
+
+message Card {
+    uint32 id = 1;
+    string name = 2;
+    uint32 year = 3;
+
+    oneof details {
+        Movie movie = 5;
+    }
+}
+
+message Movie {
+    uint32 id = 1;
+    uint32 tmdb_id = 2;
+    string fanart_id = 3;
+    repeated MovieEdition editions = 4;
+}
+
+message MovieEdition {
+    uint32 id = 1;
+    MovieEditionKind kind = 2;
+}
+
+message MovieEditionKind {
+    uint32 id = 1;
+    string name = 2;
+}
+
+message ListMovieEditionKindRequest {
+    uint32 page_size = 1;
+    string page_token = 2;
+}
+
+message ListMovieEditionKindResponse {
+    repeated MovieEditionKind movie_edition_kinds = 1;
+    string next_page_token = 2;
+}
+
+// TMDb protos.
+
+message TmdbMovie {
+    uint32 id = 1;
+    string title = 2;
+    uint32 year = 3;
+    string description = 4;
+}
+
+// RPC request and response protos.
+
+message PostMovieEditionKindRequest {
+    string name = 1;
+}
+
+message PostMovieEditionKindResponse {
+    MovieEditionKind movie_edition_kind = 1;
+}
+
+message PutMovieEditionKindRequest {
+    MovieEditionKind movie_edition_kind = 1;
+}
+
+message PutMovieEditionKindResponse {
+    MovieEditionKind movie_edition_kind = 1;
+}
+
+message ListCardRequest {
+    uint32 page_size = 1;
+    string page_token = 2;
+}
+
+message ListCardResponse {
+    repeated Card cards = 1;
+    string next_page_token = 2;
+}
+
+message GetCardRequest {
+    uint32 id = 1;
+}
+
+message GetCardResponse {
+    Card card = 1;
+}
+
+message PostTmdbMovieRequest {
+    uint32 tmdb_movie_id = 1;
+    repeated uint32 movie_edition_kind_ids = 2;
+}
+
+message PostCardRequest {
+    oneof input {
+        PostTmdbMovieRequest tmdb_movie = 1;
+    }
+}
+
+message PostCardResponse {
+    Card card = 1;
+}
+
+message PutCardRequest {
+    Card card = 1;
+}
+
+message PutCardResponse {
+    Card card = 1;
+}
+
+message ListTmdbMovieRequest {
+    string query = 1;
+    uint32 page_size = 2;
+    string page_token = 3;
+}
+
+message ListTmdbMovieResponse {
+    repeated TmdbMovie tmdb_movies = 1;
+    string next_page_token = 2;
+}
+
+service CatalogService {
+    // CRUD for MovieEditionKind
+    rpc ListMovieEditionKind(ListMovieEditionKindRequest) returns (ListMovieEditionKindResponse);
+    rpc PostMovieEditionKind(PostMovieEditionKindRequest) returns (PostMovieEditionKindResponse);
+    rpc PutMovieEditionKind(PutMovieEditionKindRequest) returns (PutMovieEditionKindResponse);
+
+    // CRUD for Card
+    rpc ListCard(ListCardRequest) returns (ListCardResponse);
+    rpc GetCard(GetCardRequest) returns (GetCardResponse);
+    rpc PostCard(PostCardRequest) returns (PostCardResponse);
+    rpc PutCard(PutCardRequest) returns (PutCardResponse);
+
+    // TMDB search api
+    rpc ListTmdbMovie (ListTmdbMovieRequest) returns (ListTmdbMovieResponse);
+}
