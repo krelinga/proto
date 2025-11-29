@@ -53,6 +53,7 @@ message TmdbMovie {
 
 message PostMovieEditionKindRequest {
     string name = 1;
+    bool is_default = 2;
 }
 
 message PostMovieEditionKindResponse {
