@@ -3,104 +3,131 @@ syntax = "proto3";
 package krelinga.video_manager.catalog.v1;
 
 message Card {
-    uint32 id = 1;
-    string name = 2;
-    uint32 year = 3;
+    optional uint32 id = 1;
+    optional string name = 2;
+    optional uint32 year = 3;
 
     oneof details {
         Movie movie = 5;
     }
 }
 
+message CardPatch {
+    oneof patch {
+        string name = 1;
+        uint32 year = 2;
+        MoviePatch movie = 3;
+    }
+}
+
 message Movie {
-    uint32 id = 1;
-    uint32 tmdb_id = 2;
-    string fanart_id = 3;
+    optional uint32 id = 1;
+    optional uint32 tmdb_id = 2;
+    optional string fanart_id = 3;
     repeated MovieEdition editions = 4;
 }
 
+message MoviePatch {
+    oneof patch {
+        uint32 tmdb_id = 1;
+        string fanart_id = 2;
+        uint32 add_movie_edition_kind_id = 3;
+        uint32 remove_movie_edition_id = 4;
+    }
+}
+
 message MovieEdition {
-    uint32 id = 1;
+    optional uint32 id = 1;
     MovieEditionKind kind = 2;
 }
 
 message MovieEditionKind {
-    uint32 id = 1;
-    string name = 2;
-    bool is_default = 3;
+    optional uint32 id = 1;
+    optional string name = 2;
+    optional bool is_default = 3;
+}
+
+message MovieEditionKindPatch {
+    oneof patch {
+        string name = 1;
+        bool is_default = 2;
+    }
 }
 
 message ListMovieEditionKindRequest {
-    uint32 page_size = 1;
-    string page_token = 2;
+    optional uint32 page_size = 1;
+    optional string page_token = 2;
 }
 
 message ListMovieEditionKindResponse {
     repeated MovieEditionKind movie_edition_kinds = 1;
-    string next_page_token = 2;
+    optional string next_page_token = 2;
 }
 
 // TMDb protos.
 
 message TmdbMovie {
-    uint32 id = 1;
-    string title = 2;
-    uint32 year = 3;
-    string description = 4;
+    optional uint32 id = 1;
+    optional string title = 2;
+    optional uint32 year = 3;
+    optional string description = 4;
 }
 
 // RPC request and response protos.
 
 message PostMovieEditionKindRequest {
-    string name = 1;
-    bool is_default = 2;
+    optional string name = 1;
+    optional bool is_default = 2;
 }
 
 message PostMovieEditionKindResponse {
     MovieEditionKind movie_edition_kind = 1;
 }
 
-message PutMovieEditionKindRequest {
-    MovieEditionKind movie_edition_kind = 1;
+message PatchMovieEditionKindRequest {
+    optional uint32 id = 1;
+    repeated MovieEditionKindPatch patches = 2;
 }
 
-message PutMovieEditionKindResponse {
+message PatchMovieEditionKindResponse {
     MovieEditionKind movie_edition_kind = 1;
 }
 
 message DeleteMovieEditionKindRequest {
-    uint32 id = 1;
+    optional uint32 id = 1;
 }
 
 message DeleteMovieEditionKindResponse {
 }
 
 message ListCardRequest {
-    uint32 page_size = 1;
-    string page_token = 2;
+    optional uint32 page_size = 1;
+    optional string page_token = 2;
 }
 
 message ListCardResponse {
     repeated Card cards = 1;
-    string next_page_token = 2;
+    optional string next_page_token = 2;
 }
 
 message GetCardRequest {
-    uint32 id = 1;
+    optional uint32 id = 1;
 }
 
 message GetCardResponse {
     Card card = 1;
 }
 
-message PostTmdbMovieRequest {
-    uint32 tmdb_movie_id = 1;
+message PostCardMovie {
+    oneof data_source {
+        uint32 tmdb_movie_id = 1;
+    }
     repeated uint32 movie_edition_kind_ids = 2;
 }
 
 message PostCardRequest {
-    oneof input {
-        PostTmdbMovieRequest tmdb_movie = 1;
+    oneof details {
+        PostCardMovie movie = 1;
     }
 }
 
@@ -108,44 +135,45 @@ message PostCardResponse {
     Card card = 1;
 }
 
-message PutCardRequest {
-    Card card = 1;
+message PatchCardRequest {
+    optional uint32 id = 1;
+    repeated CardPatch patches = 2;
 }
 
-message PutCardResponse {
+message PatchCardResponse {
     Card card = 1;
 }
 
 message DeleteCardRequest {
-    uint32 id = 1;
+    optional uint32 id = 1;
 }
 
 message DeleteCardResponse {
 }
 
 message ListTmdbMovieRequest {
-    string query = 1;
-    uint32 page_size = 2;
-    string page_token = 3;
+    optional string query = 1;
+    optional uint32 page_size = 2;
+    optional string page_token = 3;
 }
 
 message ListTmdbMovieResponse {
     repeated TmdbMovie tmdb_movies = 1;
-    string next_page_token = 2;
+    optional string next_page_token = 2;
 }
 
 service CatalogService {
     // CRUD for MovieEditionKind
     rpc ListMovieEditionKind(ListMovieEditionKindRequest) returns (ListMovieEditionKindResponse);
     rpc PostMovieEditionKind(PostMovieEditionKindRequest) returns (PostMovieEditionKindResponse);
-    rpc PutMovieEditionKind(PutMovieEditionKindRequest) returns (PutMovieEditionKindResponse);
+    rpc PatchMovieEditionKind(PatchMovieEditionKindRequest) returns (PatchMovieEditionKindResponse);
     rpc DeleteMovieEditionKind(DeleteMovieEditionKindRequest) returns (DeleteMovieEditionKindResponse);
 
     // CRUD for Card
     rpc ListCard(ListCardRequest) returns (ListCardResponse);
     rpc GetCard(GetCardRequest) returns (GetCardResponse);
     rpc PostCard(PostCardRequest) returns (PostCardResponse);
-    rpc PutCard(PutCardRequest) returns (PutCardResponse);
+    rpc PatchCard(PatchCardRequest) returns (PatchCardResponse);
     rpc DeleteCard(DeleteCardRequest) returns (DeleteCardResponse);
 
     // TMDB search api
