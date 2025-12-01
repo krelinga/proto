@@ -22,14 +22,14 @@ message CardPatch {
 
 message Movie {
     optional uint32 id = 1;
-    optional uint32 tmdb_id = 2;
+    optional uint64 tmdb_id = 2;
     optional string fanart_id = 3;
     repeated MovieEdition editions = 4;
 }
 
 message MoviePatch {
     oneof patch {
-        uint32 tmdb_id = 1;
+        uint64 tmdb_id = 1;
         string fanart_id = 2;
         uint32 add_movie_edition_kind_id = 3;
         uint32 remove_movie_edition_id = 4;
@@ -67,7 +67,7 @@ message ListMovieEditionKindResponse {
 // TMDb protos.
 
 message TmdbMovie {
-    optional uint32 id = 1;
+    optional uint64 id = 1;
     optional string title = 2;
     optional uint32 year = 3;
     optional string description = 4;
@@ -120,7 +120,7 @@ message GetCardResponse {
 
 message PostCardMovie {
     oneof data_source {
-        uint32 tmdb_movie_id = 1;
+        uint64 tmdb_movie_id = 1;
     }
     repeated uint32 movie_edition_kind_ids = 2;
 }
