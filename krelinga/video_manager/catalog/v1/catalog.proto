@@ -54,16 +54,6 @@ message MovieEditionKindPatch {
     }
 }
 
-message ListMovieEditionKindRequest {
-    optional uint32 page_size = 1;
-    optional string page_token = 2;
-}
-
-message ListMovieEditionKindResponse {
-    repeated MovieEditionKind movie_edition_kinds = 1;
-    optional string next_page_token = 2;
-}
-
 // TMDb protos.
 
 message TmdbMovie {
@@ -74,6 +64,24 @@ message TmdbMovie {
 }
 
 // RPC request and response protos.
+
+message ListMovieEditionKindRequest {
+    optional uint32 page_size = 1;
+    optional string page_token = 2;
+}
+
+message ListMovieEditionKindResponse {
+    repeated MovieEditionKind movie_edition_kinds = 1;
+    optional string next_page_token = 2;
+}
+
+message GetMovieEditionKindRequest {
+    optional uint32 id = 1;
+}
+
+message GetMovieEditionKindResponse {
+    MovieEditionKind movie_edition_kind = 1;
+}
 
 message PostMovieEditionKindRequest {
     optional string name = 1;
@@ -165,6 +173,7 @@ message ListTmdbMovieResponse {
 service CatalogService {
     // CRUD for MovieEditionKind
     rpc ListMovieEditionKind(ListMovieEditionKindRequest) returns (ListMovieEditionKindResponse);
+    rpc GetMovieEditionKind(GetMovieEditionKindRequest) returns (GetMovieEditionKindResponse);
     rpc PostMovieEditionKind(PostMovieEditionKindRequest) returns (PostMovieEditionKindResponse);
     rpc PatchMovieEditionKind(PatchMovieEditionKindRequest) returns (PatchMovieEditionKindResponse);
     rpc DeleteMovieEditionKind(DeleteMovieEditionKindRequest) returns (DeleteMovieEditionKindResponse);
